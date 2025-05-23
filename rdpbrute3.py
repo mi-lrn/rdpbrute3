@@ -100,11 +100,11 @@ class rdpbruteforce:
             if not os.path.exists(self.args.passwd_file):
                 mess = "File: %s doesn't exists ~ %s" % (os.path.abspath(self.args.passwd_file), self.args.passwd_file)
                 raise rdpExceptions(mess)
-        if self.args.server_file:
-            if not os.path.exists(self.args.server_file):
-                mess = "File: %s doesn't exist ~ %s" % (os.path.abspath(self.args.server_file), self.args.server_file)
+        if self.args.hosts_file:
+            if not os.path.exists(self.args.hosts_file):
+                mess = "File: %s doesn't exist ~ %s" % (os.path.abspath(self.args.hosts_file), self.args.hosts_file)
                 raise rdpExceptions(mess)
-            hostsfile = open(self.args.server_file, "r").read().splitlines()
+            hostsfile = open(self.args.hosts_file, "r").read().splitlines()
             for ip in hostsfile:
                 if not self.args.quiet:
                     print("Trying %s:%s" % (ip, port))
