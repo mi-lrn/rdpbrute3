@@ -27,7 +27,7 @@ class rdpbruteforce:
         self.rdp_success = "Authentication only, exit status 1"
         self.rdp_success_ins_priv = "insufficient access privileges"
         self.rdp_success_account_locked = "alert internal error"
-        self.rdp_error_host_down = "ERRCONNECT_CONNECT_FAILED"
+        self.rdp_error_host_down = "Failed to connect"
         self.rdp_error_display = r"Please check that the \$DISPLAY environment variable is properly set."
         description = "rdpbruteforce is a brute force tool which supports guessing the usernames and passwords for a host's rdp login using xfreerdp3."
         usage = "Usage: use --help for further information"
