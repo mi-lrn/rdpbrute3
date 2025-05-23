@@ -2,7 +2,7 @@
 
 ### What is rdpbrute3?
 
-**rdpbrute3** is a brute forcing tool (forked from crowbar) that can be used during penetration tests. It supports xfreerdp3 which is the new default on kali linux.
+**rdpbrute3** is a brute forcing tool for remote desktop protocol (forked from crowbar) that can be used during penetration tests. It supports xfreerdp3 which is the new default on kali linux.
 
 To get latest version from GitHub:
 
