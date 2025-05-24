@@ -31,7 +31,7 @@ class rdpbruteforce:
         self.rdp_success_account_locked = "alert internal error"
         self.rdp_error_host_down = "ERRCONNECT_CONNECT_FAILED"
         self.rdp_error_display = r"Please check that the \$DISPLAY environment variable is properly set."
-        description = "rdpbruteforce is a brute force tool which supports guessing the usernames and passwords for a host's rdp login using xfreerdp3."
+        description = "rdpbrute3 is a brute force tool which supports guessing the usernames and passwords for a host's rdp login using xfreerdp3."
         usage = "Usage: use --help for further information"
         self.parser = argparse.ArgumentParser(description=description, usage=usage)
         self.is_success = 0
