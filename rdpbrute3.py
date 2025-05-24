@@ -12,7 +12,7 @@ try:
     from exceptions import rdpExceptions
 except Exception as err:
     from exceptions import rdpExceptions
-    raise rdpExceptions(str(err))
+    print(rdpExceptions(str(err)))
 class bcolors:
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -50,7 +50,7 @@ class rdpbruteforce:
         try:
             self.args = self.parser.parse_args()
         except Exception as err:
-            raise rdpExceptions(str(err))
+            print(rdpExceptions(str(err)))
     def rdplogin(self, ip, user, password, port):
         rdp_cmd = "%s /v:%s /port:%s /u:%s /p:%s /cert:ignore +auth-only " % (self.xfreerdp3_path, ip, port, user, password)
         proc = subprocess.Popen(shlex.split(rdp_cmd), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -77,33 +77,33 @@ class rdpbruteforce:
                 break
             elif re.search(self.rdp_error_display, str(line)):
                 mess = r"Please check \$DISPLAY is properly set. See README.md"
-                raise rdpExceptions(mess)
+                print(rdpExceptions(mess))
             elif re.search(self.rdp_error_host_down, str(line)):
                 mess = "Host isn't up"
-                raise rdpExceptions(mess)
+                print(rdpExceptions(mess))
     def rdp(self):
         port = 3389
         if not os.path.exists(self.xfreerdp3_path):
             mess = "xfreerdp: %s path doesn't exists on the system" % os.path.abspath(self.xfreerdp3_path)
-            raise rdpExceptions(mess)
+            print(rdpExceptions(mess))
         if self.args.port is not None:
             port = self.args.port
         try:
             pool = ThreadPool(int(self.args.thread))
         except Exception as err:
-            raise rdpExceptions(str(err))
+            print(rdpExceptions(str(err)))
         if self.args.username_file:
             if not os.path.exists(self.args.username_file):
                 mess = "File: %s doesn't exists ~ %s" % (os.path.abspath(self.args.username_file), self.args.username_file)
-                raise rdpExceptions(mess)
+                print(rdpExceptions(mess))
         if self.args.passwd_file:
             if not os.path.exists(self.args.passwd_file):
                 mess = "File: %s doesn't exists ~ %s" % (os.path.abspath(self.args.passwd_file), self.args.passwd_file)
-                raise rdpExceptions(mess)
+                print(rdpExceptions(mess))
         if self.args.hosts_file:
             if not os.path.exists(self.args.hosts_file):
                 mess = "File: %s doesn't exist ~ %s" % (os.path.abspath(self.args.hosts_file), self.args.hosts_file)
-                raise rdpExceptions(mess)
+                print(rdpExceptions(mess))
             hostsfile = open(self.args.hosts_file, "r").read().splitlines()
             for ip in hostsfile:
                 if not self.args.quiet:
@@ -113,7 +113,7 @@ class rdpbruteforce:
                         userfile = open(self.args.username_file, "r").read().splitlines()
                     except Exception as err:
                         mess = "Error: %s" % err
-                        raise rdpExceptions(mess)
+                        print(rdpExceptions(mess))
                     for user in userfile:
                         if ' ' in user:
                             user = '"' + user + '"'
@@ -122,7 +122,7 @@ class rdpbruteforce:
                                 passwdfile = open(self.args.passwd_file, "r").read().splitlines()
                             except Exception as err:
                                 mess = "Error: %s" % err
-                                raise rdpExceptions(mess)
+                                print(rdpExceptions(mess))
                             for password in passwdfile:
                                 pool.add_task(self.rdplogin, ip, user, password, port)
                         else:
@@ -133,7 +133,7 @@ class rdpbruteforce:
                             passwdfile = open(self.args.passwd_file, "r").read().splitlines()
                         except Exception as err:
                             mess = "Error: %s" % err
-                            raise rdpExceptions(mess)
+                            print(rdpExceptions(mess))
                         for password in passwdfile:
                             pool.add_task(self.rdplogin, ip, self.args.username, password, port)
                     else:
@@ -146,7 +146,7 @@ class rdpbruteforce:
                     userfile = open(self.args.username_file, "r").read().splitlines()
                 except Exception as err:
                     mess = "Error: %s" % err
-                    raise rdpExceptions(mess)
+                    print(rdpExceptions(mess))
                 for user in userfile:
                     if ' ' in user:
                         user = '"' + user + '"'
@@ -155,7 +155,7 @@ class rdpbruteforce:
                             passwdfile = open(self.args.passwd_file, "r").read().splitlines()
                         except Exception as err:
                             mess = "Error: %s" % err
-                            raise rdpExceptions(mess)
+                            print(rdpExceptions(mess))
                         for password in passwdfile:
                             pool.add_task(self.rdplogin, self.args.host, user, password, port)
                     else:
@@ -166,7 +166,7 @@ class rdpbruteforce:
                         passwdfile = open(self.args.passwd_file, "r").read().splitlines()
                     except Exception as err:
                         mess = "Error: %s" % err
-                        raise rdpExceptions(mess)
+                        print(rdpExceptions(mess))
                     for password in passwdfile:
                         pool.add_task(self.rdplogin, self.args.host, self.args.username, password, port)
                 else:
