@@ -54,7 +54,7 @@ class rdpbruteforce:
         except Exception as err:
             print(bcolors.FAIL + (str(err)) + bcolors.ENDC)
     def rdplogin(self, ip, user, password, port):
-        rdp_cmd = "%s /v:%s /port:%s /u:%s /p:%s /cert:ignore +auth-only " % (self.xfreerdp3_path, ip, port, user, password)
+        rdp_cmd = "%s /v:%s /port:%s /u:'%s' /p:'%s' /cert:ignore +auth-only " % (self.xfreerdp3_path, ip, port, user, password)
         proc = subprocess.Popen(shlex.split(rdp_cmd), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         if not self.args.quiet:
              print("Attempt: " + ip + ":" + str(port) + " - " + user + ":" + password)
