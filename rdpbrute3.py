@@ -35,7 +35,6 @@ class rdpbruteforce:
         usage = "Usage: use --help for further information"
         self.parser = argparse.ArgumentParser(description=description, usage=usage)
         self.is_success = 0
-        self.successes = []
     def main(self):
         hosts = self.parser.add_mutually_exclusive_group(required=True)
         usernames = self.parser.add_mutually_exclusive_group(required=True)
@@ -62,19 +61,16 @@ class rdpbruteforce:
             if re.search(self.rdp_success, str(line)):
                 result = bcolors.OKGREEN + "RDP-SUCCESS : " + bcolors.ENDC + bcolors.OKBLUE + ip + ":" + str(port) + " - " + user + ":" + password + bcolors.ENDC
                 self.is_success = 1
-                self.successes.append(result)
                 print(result)
                 break
             elif re.search(self.rdp_success_ins_priv, str(line)):
                 result = bcolors.OKGREEN + "RDP-SUCCESS (INSUFFICIENT PRIVILEGES) : " + bcolors.ENDC + bcolors.OKBLUE + ip + ":" + str(port) + " - " + user + ":" + password + bcolors.ENDC
                 self.is_success = 1
-                self.successes.append(result)
                 print(result)
                 break
             elif re.search(self.rdp_success_account_locked, str(line)):
                 result = bcolors.OKGREEN + "RDP-SUCCESS (ACCOUNT_LOCKED_OR_PASSWORD_EXPIRED) : " + bcolors.ENDC + bcolors.OKBLUE + ip + ":" + str(port) + " - " + user + ":" + password + bcolors.ENDC
                 self.is_success = 1
-                self.successes.append(result)
                 print(result)
                 break
             elif re.search(self.rdp_error_display, str(line)):
@@ -179,8 +175,5 @@ class rdpbruteforce:
         self.rdp()
         if self.is_success == 0:
             print("No results found...")
-        else:
-            for success in self.successes:
-                print(success)
 session = rdpbruteforce()
 session.run()
